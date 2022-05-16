@@ -1,12 +1,14 @@
 import { Response } from "express";
 import Joi from "joi";
 import { TextModel } from "../model/translate.model";
+import { translationDataEmail } from "../templates/emailTemplate";
 import {
   Language,
   RequestWithData,
   SimilarityAlgorithm,
   TextTranslationDocument,
 } from "../types";
+import transporter from "../utils/emailConfig";
 import { parseTextToOject } from "../utils/parser";
 import { scoreSimilarity } from "../utils/scoreSimilarityAlgorithm";
 import { importDataSchema } from "../utils/validator";
@@ -35,10 +37,28 @@ export const translateFile = async (req, res) => {
   const results = await scoreSimilarity(parsedFileData);
   const translatedSubtitles = getTranslatedSubtitles(results);
 
-  res.json({
-    message:
-      "Subtitles have been successfully translated, We will send it ASAP to your email",
-  });
+  try {
+    await transporter.sendMail(
+      translationDataEmail({
+        to: "mohamedsalah.software@gmail.com",
+        attachments: [
+          {
+            content: translatedSubtitles,
+            filename: "translated-subtitles.txt",
+          },
+        ],
+      })
+    );
+
+    res.json({
+      message:
+        "Subtitles have been successfully translated, We will send it ASAP to your email",
+    });
+  } catch (e) {
+    res.status(500)({
+      message: "Something went wrong while sending your email",
+    });
+  }
 };
 
 export const importData = async (req: RequestWithData, res) => {

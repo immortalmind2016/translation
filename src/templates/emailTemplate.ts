@@ -14,7 +14,7 @@ export const emailTemplate = ({
   attachments,
 });
 export const translationDataEmail = (
-  input: Omit<EmailTemplateArgs, "subject">
+  input: Omit<EmailTemplateArgs, "subject" | "text">
 ) =>
   emailTemplate({
     ...input,
