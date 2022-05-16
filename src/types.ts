@@ -43,3 +43,13 @@ export interface RequestWithData extends Request {
     data: predefinedData[];
   };
 }
+
+export interface EmailTemplateArgs {
+  to: String;
+  subject: String;
+  text: String;
+  attachments?: {
+    filename: string;
+    content: string;
+  }[];
+}
