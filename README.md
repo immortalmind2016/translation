@@ -63,3 +63,33 @@ so the database query will return this document
 - We can use [Atlas Search](https://www.mongodb.com/docs/atlas/atlas-search/atlas-search-overview/) for faster queries
 - Caching for Most frequently used sentences 
 - Use SendGrid for emails instead of nodemailer
+
+## How to run the project
+### Without Docker
+- Download Nodejs
+- Create Atlas MongoDB Cluster
+- Set your env file
+```bash
+npm install -g yarn
+```
+```bash
+yarn
+```
+```bash
+yarn start
+```
+### Using docker
+- Download Docker
+- Set your env file
+- type in your bash
+
+  ```bash 
+  docker-compose up -d
+  ```
+
+## Testing
+- Write the following command 
+
+    ```bash
+    yarn test
+    ```
