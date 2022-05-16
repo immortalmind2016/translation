@@ -1,4 +1,6 @@
-export const parseTextToOject = (text) => {
+import { ParsedText } from "../types";
+
+export const parseTextToOject: (text: string) => ParsedText[] = (text) => {
   const lines = text.split("\n");
 
   //extract anything between these two characters []
@@ -13,7 +15,7 @@ export const parseTextToOject = (text) => {
     const index = line.split(" ")[0];
     const time = line.match(timeRegex)?.[0];
 
-    const text = line.match(textRegex)?.[0].trim("");
+    const text = line.match(textRegex)?.[0].trim();
 
     return {
       index: Number(index),
