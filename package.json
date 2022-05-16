@@ -6,12 +6,14 @@
   "scripts": {
     "start": "ts-node ./src/index.ts",
     "test": "jest",
-    "seed":"ts-node ./src/seed/text.ts"
+    "seed": "ts-node ./src/seed/text.ts"
   },
   "dependencies": {
+    "@types/joi": "^17.2.3",
     "dotenv": "^16.0.1",
     "envalid": "^7.3.1",
     "express": "^4.18.1",
+    "joi": "^17.6.0",
     "js-levenshtein": "^1.1.6",
     "mongoose": "^6.3.3",
     "multer": "^1.4.4",

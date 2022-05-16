@@ -4,6 +4,7 @@ import translateRouter from "./route/translate.routes";
 import mongoose from "mongoose";
 mongoose.connect(config.MONGO_URI);
 const app = express();
+app.use(express.json());
 
 app.use("/translate", translateRouter);
 app.listen(config.PORT, () => {

@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface TranslationDocument {
   language: Language;
   text: string;
@@ -29,4 +31,16 @@ export interface ParsedText {
   index: number;
   time: string;
   text: string;
+}
+
+export interface predefinedData {
+  source: string;
+  target: string;
+  sourceLanguage: Language;
+  targetLanguage: Language;
+}
+export interface RequestWithData extends Request {
+  body: {
+    data: predefinedData[];
+  };
 }
