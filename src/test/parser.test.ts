@@ -1,4 +1,4 @@
-import { parseTextToOject } from "../src/utils/parser";
+import { parseTextToOject } from "../utils/parser";
 import fs from "fs";
 import path from "path";
 
