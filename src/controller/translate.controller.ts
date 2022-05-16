@@ -19,10 +19,6 @@ export const importData = async (req: RequestWithData, res) => {
   const body = req.body;
   const result = importDataSchema.validate(body);
   const { error } = result;
-  console.log(
-    "🚀 ~ file: translate.controller.ts ~ line 22 ~ importData ~ error",
-    error
-  );
 
   if (!!error) {
     return res.status(422).json({
