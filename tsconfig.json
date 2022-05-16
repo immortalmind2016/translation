@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "rootDir": "./src",
+        "outDir": "dest"
+    }
+}
