@@ -20,6 +20,7 @@ export enum Language {
 export interface SimilarityAlgorithm {
   message: string;
   index: number;
+  time: string;
   similar: {
     data: TextTranslationDocument;
     score: number;

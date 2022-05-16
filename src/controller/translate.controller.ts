@@ -13,11 +13,13 @@ import { importDataSchema } from "../utils/validator";
 
 const getTranslatedSubtitles = (results: SimilarityAlgorithm[]): string => {
   const translatedSubTitles = results.map((result) => {
+    let message = ``;
     if (result.similar?.length === 0) {
-      return result.message;
+      message = result.message;
     } else {
-      return result.similar[0].data.translations[Language.de];
+      message = result.similar[0].data.translations[Language.de];
     }
+    return `${result.index} ${result.time} ${message}`;
   });
   return translatedSubTitles.join("\n");
 };

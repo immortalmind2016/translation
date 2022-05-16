@@ -20,10 +20,10 @@ export const scoreSimilarity: (
   //compare each sentence from the text file with the results from db , get the score of similarity and return the results
   //in well-formatted shape
 
-  const sentencesScores = textFileData.map((message) => {
+  const sentencesScores = textFileData.map(({ text, index, time }) => {
     const similarSentences = queryResults
       .map((result) => {
-        let score = levenshtein(result.text, message.text);
+        let score = levenshtein(result.text, text);
         if (score <= 5) {
           return {
             data: result,
@@ -35,8 +35,9 @@ export const scoreSimilarity: (
 
     return {
       similar: similarSentences,
-      message: message.text,
-      index: message.index,
+      message: text,
+      index,
+      time,
     };
   });
   return sentencesScores;
