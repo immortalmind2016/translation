@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "seed":"ts-node ./seed/text.ts"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
