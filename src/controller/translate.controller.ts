@@ -1,10 +1,27 @@
 import { Response } from "express";
 import Joi from "joi";
 import { TextModel } from "../model/translate.model";
-import { RequestWithData, TextTranslationDocument } from "../types";
+import {
+  Language,
+  RequestWithData,
+  SimilarityAlgorithm,
+  TextTranslationDocument,
+} from "../types";
 import { parseTextToOject } from "../utils/parser";
 import { scoreSimilarity } from "../utils/scoreSimilarityAlgorithm";
 import { importDataSchema } from "../utils/validator";
+
+const getTranslatedSubtitles = (results: SimilarityAlgorithm[]): string => {
+  const translatedSubTitles = results.map((result) => {
+    if (result.similar?.length === 0) {
+      return result.message;
+    } else {
+      return result.similar[0].data.translations[Language.de];
+    }
+  });
+  return translatedSubTitles.join("\n");
+};
+
 export const translateFile = async (req, res) => {
   if (!req.file) {
     return res
@@ -14,7 +31,14 @@ export const translateFile = async (req, res) => {
   const fileData = req?.file?.buffer.toString("utf-8");
   const parsedFileData = parseTextToOject(fileData) || [];
   const results = await scoreSimilarity(parsedFileData);
+  const translatedSubtitles = getTranslatedSubtitles(results);
+
+  res.json({
+    message:
+      "Subtitles have been successfully translated, We will send it ASAP to your email",
+  });
 };
+
 export const importData = async (req: RequestWithData, res) => {
   const body = req.body;
   const result = importDataSchema.validate(body);
