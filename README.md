@@ -6,7 +6,7 @@
 ## How you can use it as a client side
 - Upload the subtitle text file
 - You will got notified by an email with an attachment file contains the translated version
-- 
+  
 ## How it works
 - Upload the subtitles text file
 - Parses the text file data into an object with the follow shape
