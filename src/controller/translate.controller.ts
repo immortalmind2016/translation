@@ -33,7 +33,7 @@ export const importData = async (req: RequestWithData, res) => {
     return {
       defaultLanguage: sourceLanguage,
       text: source,
-      translations: [{ language: targetLanguage, text: target }],
+      translations: { [targetLanguage]: target },
     };
   });
   const textTranslationDocument = await TextModel.insertMany(desiredData);

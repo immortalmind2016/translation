@@ -4,20 +4,6 @@ import {
   TextTranslationDocument,
   TranslationDocument,
 } from "../types";
-const TranslationSchema = new Schema<TranslationDocument>(
-  {
-    language: {
-      type: String,
-      default: Language.en,
-      enum: Object.values(Language),
-    },
-    text: { type: String, required: true },
-  },
-  {
-    _id: false,
-    versionKey: false,
-  }
-);
 
 const TextSchema = new Schema<TextTranslationDocument>(
   {
@@ -27,7 +13,7 @@ const TextSchema = new Schema<TextTranslationDocument>(
       enum: Object.values(Language),
     },
     text: { type: String, required: true },
-    translations: [TranslationSchema],
+    translations: Object,
   },
   {
     timestamps: true,

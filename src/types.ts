@@ -1,14 +1,13 @@
 import { Request } from "express";
 
 export interface TranslationDocument {
-  language: Language;
-  text: string;
+  [k: string]: string;
 }
 export interface TextTranslationDocument {
   _id: string;
   text: string;
   defaultLanguage: Language;
-  translations: {};
+  translations: TranslationDocument;
   createdAt: Date;
   updatedAt: Date;
 }
