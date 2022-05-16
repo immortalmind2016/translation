@@ -2,4 +2,23 @@ version: '3.1'
 services:
   mongo:
     image: mongo
+    ports:
+      - "27017:27017"
+  lengoo:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/app
+      - /user/app/node_modules
+    depends_on: 
+      - mongo
+    environment:
+      MONGO_URI: mongodb://mongo:27017/lengoo
+    
+
+    
+
+
+  
 
