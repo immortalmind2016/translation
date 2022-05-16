@@ -1,12 +1,17 @@
-interface TranslationDocument {
-  language: string;
-  word: string;
+export interface TranslationDocument {
+  language: Language;
+  text: string;
 }
-interface StringTranslationDocument {
+export interface TextTranslationDocument {
   _id: string;
-  word: string;
-  src: string;
+  text: string;
+  defaultLanguage: Language;
   translations: {};
   createdAt: Date;
   updatedAt: Date;
+}
+
+export enum Language {
+  en = "en",
+  de = "de",
 }
