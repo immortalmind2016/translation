@@ -21,18 +21,20 @@ export const scoreSimilarity: (
   //in well-formatted shape
 
   const sentencesScores = textFileData.map((message) => {
+    const similarSentences = queryResults
+      .map((result) => {
+        let score = levenshtein(result.text, message.text);
+        if (score <= 5) {
+          return {
+            data: result,
+            score,
+          };
+        }
+      })
+      .filter((data) => !!data);
+
     return {
-      similar: queryResults
-        .map((result) => {
-          let score = levenshtein(result.text, message.text);
-          if (score <= 5) {
-            return {
-              data: result,
-              score,
-            };
-          }
-        })
-        .filter((data) => !!data),
+      similar: similarSentences,
       message: message.text,
       index: message.index,
     };
