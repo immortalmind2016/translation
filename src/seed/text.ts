@@ -1,5 +1,8 @@
-import { TextModel } from "../src/model/translate.model";
-import { Language, TextTranslationDocument } from "../src/types";
+import { TextModel } from "../model/translate.model";
+import { Language, TextTranslationDocument } from "../types";
+import mongoose from "mongoose";
+import config from "../config";
+mongoose.connect(config.MONGO_URI);
 
 const text_1: Omit<TextTranslationDocument, "_id" | "createdAt" | "updatedAt"> =
   {
