@@ -63,6 +63,7 @@ so the database query will return this document
 - We can use [Atlas Search](https://www.mongodb.com/docs/atlas/atlas-search/atlas-search-overview/) for faster queries
 - Caching for Most frequently used sentences 
 - Use SendGrid for emails instead of nodemailer
+- Don't wait the send email request to response to /translate request
 
 ## How to run the project
 ### Without Docker
