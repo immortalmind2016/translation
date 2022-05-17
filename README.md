@@ -57,6 +57,12 @@ and the input is **welcome how are you**
 so the database query will return this document
 - next step check the similarity based on [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance)
 
+## Limitation 
+- the similarity score based on the whole sentence not every word
+- In order to get the score we are not based on the context of the text
+- If we have missed characters inside the sentence the db query will not return the similar sentences
+  - example
+  if the input is **Hi, Hello Wrld** and the stored translation text is **Hi, Hello World** So the db query will not return this stored translation text because we missed the **o** letter at input
 
 ## Near future improvements 
 - Using NLP (deeplearning) algorithm instead of this simple one
