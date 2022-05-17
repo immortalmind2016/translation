@@ -6,5 +6,5 @@
         "outDir": "dest",
         "resolveJsonModule": true
     },
-    "exclude": ["src/test","src/seed"]
+    "exclude": ["test","src/seed"]
 }
