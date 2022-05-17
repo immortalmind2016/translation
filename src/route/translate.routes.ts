@@ -14,9 +14,11 @@ const translateRouter = Router();
  *         application/x-www-form-urlencoded:
  *              schema:
  *                  properties:
- *                      file:
- *                          type: string
- *                          format: binary
+ *                      files:
+ *                          type: array
+ *                          items:
+ *                              type: string
+ *                              format: binary
  *
  *     responses:
  *       200:
@@ -29,7 +31,7 @@ const translateRouter = Router();
  *                              type: string
  *                              example: Subtitles have been successfully translated, We will send it ASAP to your email
  */
-translateRouter.post("/", upload.single("file"), translateFile);
+translateRouter.post("/", upload.array("files"), translateFile);
 
 /**
  * @openapi

@@ -31,29 +31,41 @@ export const translateFile = async (req, res) => {
     #swagger.tags = ["calculations"]
     #swagger.description = 'Fetch a calculation result'
   */
-  if (!req.file) {
+  if (!req.files) {
     return res
       .status(422)
       .json({ error: "Your input doesn't contain a required file" });
   }
-  const fileData = req?.file?.buffer.toString("utf-8");
-  const parsedFileData = parseTextToOject(fileData) || [];
-  const results = await scoreSimilarity(parsedFileData);
-  const translatedSubtitles = getTranslatedSubtitles(results);
 
+  const scoreSimilarityPromises = req.files.map(async (file) => {
+    const fileData = file.buffer.toString("utf-8");
+    const parsedFileData = parseTextToOject(fileData) || [];
+    return scoreSimilarity(parsedFileData);
+  });
+
+  const scoreSimilarityPromisesResults = await Promise.all(
+    scoreSimilarityPromises
+  );
+  const translatedSubtitles = scoreSimilarityPromisesResults.map((result) =>
+    getTranslatedSubtitles(result)
+  );
+
+  const translatedSubtitlesEmailPromises = translatedSubtitles.map(
+    (translatedSubtitle, index) =>
+      transporter.sendMail(
+        translationDataEmail({
+          to: "mohamedsalah.software@gmail.com",
+          attachments: [
+            {
+              content: translatedSubtitle,
+              filename: `translated-subtitles-${index + 1}.txt`,
+            },
+          ],
+        })
+      )
+  );
   try {
-    await transporter.sendMail(
-      translationDataEmail({
-        to: "mohamedsalah.software@gmail.com",
-        attachments: [
-          {
-            content: translatedSubtitles,
-            filename: "translated-subtitles.txt",
-          },
-        ],
-      })
-    );
-
+    await Promise.all(translatedSubtitlesEmailPromises);
     res.json({
       message:
         "Subtitles have been successfully translated, We will send it ASAP to your email",
