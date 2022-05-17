@@ -20,7 +20,7 @@ const translateRouter = Router();
  *
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Returns a message contains the status.
  *         content:
  *             application/json:
  *                  schema:
@@ -31,6 +31,43 @@ const translateRouter = Router();
  */
 translateRouter.post("/", upload.single("file"), translateFile);
 
+/**
+ * @openapi
+ * "/translate/import-data":
+ *   post:
+ *     summary: Add translation data to the store
+ *     requestBody:
+ *       description: Test
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *              schema:
+ *                  properties:
+ *                      data:
+ *                          example: [ { "source": "Hello World", "target": "Hallo Welt", "sourceLanguage": "en", "targetLanguage": "de" }, { "source": "Hello guys", "target": "Hallo Leute", "sourceLanguage": "en", "targetLanguage": "de" }, { "source": "I walk to the supermarket", "target": "Ich gehe zum Supermarkt.", "sourceLanguage": "en", "targetLanguage": "de" } ]
+ *                          type: array
+ *                          items:
+ *                              type: object
+ *                              properties:
+ *                                  source:
+ *                                      type: string
+ *                                  targe:
+ *                                      type: string
+ *                                  sourceLanguage:
+ *                                      type: string
+ *                                  targetLanguage:
+ *                                      type: string
+ *
+ *
+ *     responses:
+ *       200:
+ *         description: return the created documents
+ *         content:
+ *             application/json:
+ *                  schema:
+ *                     properties:
+ *                          data:
+ *                              type: array
+ */
 translateRouter.post("/import-data", importData);
 
 export default translateRouter;
