@@ -8,7 +8,7 @@ import {
   SimilarityAlgorithm,
   TextTranslationDocument,
 } from "../types";
-import transporter from "../utils/emailConfig";
+import transporter from "../config/emailConfig";
 import { parseTextToOject } from "../utils/parser";
 import { scoreSimilarity } from "../utils/scoreSimilarityAlgorithm";
 import { importDataSchema } from "../utils/validator";
@@ -27,6 +27,10 @@ const getTranslatedSubtitles = (results: SimilarityAlgorithm[]): string => {
 };
 
 export const translateFile = async (req, res) => {
+  /*
+    #swagger.tags = ["calculations"]
+    #swagger.description = 'Fetch a calculation result'
+  */
   if (!req.file) {
     return res
       .status(422)

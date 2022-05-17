@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { importData, translateFile } from "../controller/translate.controller";
+import upload from "../config/multerConfig";
 
-import upload from "../utils/multerConfig";
 const translateRouter = Router();
 
 translateRouter.post("/", upload.single("file"), translateFile);

@@ -3,7 +3,8 @@
         "noImplicitAny": false,
         "esModuleInterop": true,
         "rootDir": "./src",
-        "outDir": "dest"
+        "outDir": "dest",
+        "resolveJsonModule": true
     },
     "exclude": ["src/test","src/seed"]
 }
