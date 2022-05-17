@@ -66,6 +66,7 @@ so the database query will return this document
 - Use SendGrid for emails instead of nodemailer
 - Caching for Most frequently used sentences 
 - Don't wait the send email request to response to /translate request
+- Authenticate/Authorize the access for the backoffice routes
 
 ## How to run the project
 ### Without Docker
@@ -96,3 +97,7 @@ yarn start
     ```bash
     yarn test
     ```
+
+## API Documentation
+- Swagger UI
+```GET /api-docs```
