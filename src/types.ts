@@ -3,11 +3,17 @@ import { Request } from "express";
 export interface TranslationDocument {
   [k: string]: string;
 }
+export enum TextTranslationStatus {
+  UNDER_REVIEW = "under_review",
+  APPROVED = "approved",
+  DECLINED = "declined",
+}
 export interface TextTranslationDocument {
   _id: string;
   text: string;
   defaultLanguage: Language;
   translations: TranslationDocument;
+  status: TextTranslationStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +48,7 @@ export interface predefinedData {
 export interface RequestWithData extends Request {
   body: {
     data: predefinedData[];
+    status: TextTranslationStatus;
   };
 }
 

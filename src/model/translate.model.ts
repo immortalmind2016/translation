@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import {
   Language,
   TextTranslationDocument,
+  TextTranslationStatus,
   TranslationDocument,
 } from "../types";
 
@@ -14,6 +15,11 @@ const TextSchema = new Schema<TextTranslationDocument>(
     },
     text: { type: String, required: true },
     translations: Object,
+    status: {
+      type: String,
+      default: TextTranslationStatus.UNDER_REVIEW,
+      enum: Object.values(TextTranslationStatus),
+    },
   },
   {
     timestamps: true,

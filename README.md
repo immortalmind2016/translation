@@ -52,8 +52,8 @@
 ## Score similarity algorithm
 - It's a simple algorithm which is based on find the similar sentence from mongodb using regex for example 
 - stored sentence inside db is
-  ```Hi , Welcome how are you```
-and the input is ```welcome how are you```
+  **Hi , Welcome how are you**
+and the input is **welcome how are you**
 so the database query will return this document
 - next step check the similarity based on [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance)
 
@@ -61,8 +61,10 @@ so the database query will return this document
 ## Near future improvements 
 - Using NLP (deeplearning) algorithm instead of this simple one
 - We can use [Atlas Search](https://www.mongodb.com/docs/atlas/atlas-search/atlas-search-overview/) for faster queries
-- Caching for Most frequently used sentences 
+  - If we decided to use this one we will not need to make our algorithm to check the score, the db will create it for us
+- Add more test cases
 - Use SendGrid for emails instead of nodemailer
+- Caching for Most frequently used sentences 
 - Don't wait the send email request to response to /translate request
 
 ## How to run the project

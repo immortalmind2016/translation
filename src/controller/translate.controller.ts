@@ -7,6 +7,7 @@ import {
   RequestWithData,
   SimilarityAlgorithm,
   TextTranslationDocument,
+  TextTranslationStatus,
 } from "../types";
 import transporter from "../config/emailConfig";
 import { parseTextToOject } from "../utils/parser";
@@ -96,6 +97,7 @@ export const importData = async (req: RequestWithData, res) => {
       defaultLanguage: sourceLanguage,
       text: source,
       translations: { [targetLanguage]: target },
+      status: TextTranslationStatus.UNDER_REVIEW,
     };
   });
   const textTranslationDocument = await TextModel.insertMany(desiredData);
