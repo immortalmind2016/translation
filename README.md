@@ -144,8 +144,8 @@ yarn watch:dev
 [translate flow](https://i.ibb.co/qRHJLZv/image.png)
 <img src="https://i.ibb.co/qRHJLZv/image.png" alt="image" border="0">
 ### Import data flow
-[import data flow](https://i.ibb.co/KDj52YR/image.png)
-<img src="https://i.ibb.co/KDj52YR/image.png" alt="image" border="0">
+[import data flow](https://i.ibb.co/MNcTq7C/image.png)
+<img src="https://i.ibb.co/MNcTq7C/image.png" alt="image" border="0">
 
 ### Approve translation data
 [approve data flow](https://i.ibb.co/xgsWdt1/image.png)
