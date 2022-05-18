@@ -43,7 +43,7 @@
 - Finally the email is being sent you the client
 
 ## Normal Flow
-- Importing data or use the seed command 
+- Importing data **[Default Status is under_review]** or use the seed command 
 - Approve these data with the backoffice change status URL 
 ```ts
 POST /backoffice/:textTranslationId/status
@@ -142,5 +142,7 @@ yarn watch:dev
 ## Diagrams 
 ### Translate flow
 [translate flow](https://i.ibb.co/qRHJLZv/image.png)
+<img src="https://i.ibb.co/qRHJLZv/image.png" alt="image" border="0">
 ### Import data flow
 [import data flow](https://i.ibb.co/KDj52YR/image.png)
+<img src="https://i.ibb.co/KDj52YR/image.png" alt="image" border="0">
