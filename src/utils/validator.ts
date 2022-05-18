@@ -16,3 +16,7 @@ export const importDataSchema = Joi.object({
 export const updateStatusSchema = Joi.object({
   status: joiString.valid(...Object.keys(TextTranslationStatus)),
 });
+
+export const translateFileSchema = Joi.object({
+  email: joiString.email(),
+});

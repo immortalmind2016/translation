@@ -1,5 +1,5 @@
 import { TextModel } from "../model/translate.model";
-import { RequestWithData } from "../types";
+import { RequestWithData, TextTranslationStatus } from "../types";
 import { updateStatusSchema } from "../utils/validator";
 
 export const changeStatus = async (req: RequestWithData, res) => {
@@ -15,7 +15,7 @@ export const changeStatus = async (req: RequestWithData, res) => {
   res.json({
     data: await TextModel.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: { status: body.status } },
+      { $set: { status: TextTranslationStatus[body.status] } },
       { new: true }
     ),
   });

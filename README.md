@@ -86,7 +86,10 @@ npm install -g yarn
 yarn
 ```
 ```bash
-yarn start
+yarn start:dev
+```
+```bash
+yarn watch:dev
 ```
 ### Using docker
 - Download Docker
@@ -107,3 +110,6 @@ yarn start
 ## API Documentation
 - Swagger UI
 ```GET /api-docs```
+
+
+## Postman collection

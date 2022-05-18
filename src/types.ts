@@ -49,6 +49,7 @@ export interface RequestWithData extends Request {
   body: {
     data: predefinedData[];
     status: TextTranslationStatus;
+    email: string;
   };
 }
 
