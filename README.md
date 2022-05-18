@@ -113,7 +113,9 @@ yarn watch:dev
 - Download Docker
 - Set your env file
 - type in your bash
-
+  ```bash 
+  docker-compose build 
+  ```
   ```bash 
   docker-compose up -d
   ```
@@ -148,5 +150,5 @@ yarn watch:dev
 <img src="https://i.ibb.co/MNcTq7C/image.png" alt="image" border="0">
 
 ### Approve translation data
-[approve data flow](https://i.ibb.co/xgsWdt1/image.png)
-<img src="https://i.ibb.co/xgsWdt1/image.png" alt="image" border="0">
+[approve data flow](https://i.ibb.co/C0SqKZ9/image.png)
+<img src="https://i.ibb.co/C0SqKZ9/image.png" alt="image" border="0">
