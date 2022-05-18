@@ -48,6 +48,8 @@
 - MongoDB
 - ExpressJs
 - Jest
+- Mongodb in memory
+- supertest
 
 ## Score similarity algorithm
 - It's a simple algorithm which is based on find the similar sentence from mongodb using regex for example 
@@ -74,6 +76,9 @@ so the database query will return this document
 - Don't wait the send email request to response to /translate request
 - Authenticate/Authorize the access for the backoffice routes
 - Logging
+- Add CI/CD
+- Linting
+- More integration tests (and mocking)
 
 ## How to run the project
 ### Without Docker
@@ -114,3 +119,5 @@ yarn watch:dev
 
 
 ## Postman collection
+
+[JSON Link](https://www.getpostman.com/collections/a6a60b853685f8f8785a)

@@ -9,14 +9,13 @@ import backofficeRouter from "./route/backoffice.routes";
 
 mongoose.connect(config.MONGO_URI);
 
-const app = express();
+export const app = express();
 const swaggerDocument = swaggerJs(swaggerOptions);
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/translate", translateRouter);
 app.use("/backoffice/", backofficeRouter);
-
-app.listen(config.PORT, () => {
+export const server = app.listen(config.PORT, () => {
   console.log(`The service has been started on port ${config.PORT}`);
 });

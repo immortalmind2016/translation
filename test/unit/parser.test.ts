@@ -1,11 +1,11 @@
-import { parseTextToOject } from "../src/utils/parser";
+import { parseTextToOject } from "../../src/utils/parser";
 import fs from "fs";
 import path from "path";
 
 describe("Test the parser", () => {
-  it("test the text to object parser", () => {
+  it("tests the text to object parser", () => {
     const subtitleFile = fs.readFileSync(
-      path.join(__dirname, "..", "example", "subtitles.txt"),
+      path.join(__dirname, "..", "..", "example", "subtitles.txt"),
       "utf-8"
     );
     expect(parseTextToOject(subtitleFile)).toStrictEqual([
@@ -16,6 +16,7 @@ describe("Test the parser", () => {
       },
       { index: 2, text: "Come back to the light.", time: expect.anything() },
       { index: 3, text: "Nooo, my precious!!.", time: expect.anything() },
+      { index: 4, text: "Hello World", time: expect.anything() },
     ]);
   });
 });

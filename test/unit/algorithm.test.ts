@@ -1,10 +1,6 @@
-import { parseTextToOject } from "../src/utils/parser";
-import fs from "fs";
-import path from "path";
-import { scoreSimilarity } from "../src/utils/scoreSimilarityAlgorithm";
-import { ParsedText } from "../src/types";
+import { scoreSimilarity } from "../../src/utils/scoreSimilarityAlgorithm";
+import { ParsedText } from "../../src/types";
 import mongoose from "mongoose";
-jest.setTimeout(90000);
 
 describe("Test the score similarity algorithm", () => {
   beforeAll(async () => {
