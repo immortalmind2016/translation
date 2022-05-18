@@ -73,6 +73,7 @@ so the database query will return this document
 - Caching for Most frequently used sentences 
 - Don't wait the send email request to response to /translate request
 - Authenticate/Authorize the access for the backoffice routes
+- Logging
 
 ## How to run the project
 ### Without Docker

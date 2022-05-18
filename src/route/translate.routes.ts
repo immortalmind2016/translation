@@ -14,6 +14,8 @@ const translateRouter = Router();
  *         application/x-www-form-urlencoded:
  *              schema:
  *                  properties:
+ *                      email:
+ *                         type: string
  *                      files:
  *                          type: array
  *                          items:

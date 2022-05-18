@@ -18,10 +18,6 @@ export const getTranslatedSubtitles = (
 };
 
 export const sendSubtitlesEmail = async (translatedSubtitles, email) => {
-  console.log(
-    "🚀 ~ file: translation.ts ~ line 21 ~ sendSubtitlesEmail ~ translatedSubtitles",
-    translatedSubtitles
-  );
   return transporter.sendMail(
     translationDataEmail({
       to: email,

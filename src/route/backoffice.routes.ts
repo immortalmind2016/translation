@@ -17,7 +17,7 @@ const backofficeRouter = Router();
  *              schema:
  *                  properties:
  *                      status:
- *                          example:
+ *                          example: APPROVED
  *                          type: string
  *                          enum: [UNDER_REVIEW,APPROVED,DECLINED]
  *
@@ -30,7 +30,7 @@ const backofficeRouter = Router();
  *                  schema:
  *                     properties:
  *                          data:
- *                              type: object
+ *                              type: array
  */
 
 backofficeRouter.put("/translations/:id/status/", changeStatus);
