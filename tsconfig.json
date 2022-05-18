@@ -6,5 +6,5 @@
         "outDir": "dest",
         "resolveJsonModule": true
     },
-    "exclude": ["test","src/seed"]
+    "exclude": ["test","src/seed","jest.config.ts"]
 }
