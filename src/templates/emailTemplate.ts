@@ -7,7 +7,7 @@ export const emailTemplate = ({
   text,
   attachments,
 }: EmailTemplateArgs) => ({
-  from: config.email,
+  from: config.EMAIL,
   to,
   subject,
   text,

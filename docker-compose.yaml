@@ -7,14 +7,17 @@ services:
   lengoo:
     build: .
     ports:
-      - "4000:4000"
-    volumes:
-      - .:/usr/app
-      - /user/app/node_modules
+      - 4000:4000
     depends_on: 
       - mongo
+    env_file:
+      ./.env
     environment:
-      MONGO_URI: mongodb://mongo:27017/lengoo
+      - PORT=4000
+      - MONGO_URI=mongodb://mongo:27017/lengoo
+      - EMAIL=$EMAIL
+      - EMAIL_PASSWORD=$EMAIL_PASSWORD
+
     
 
     
