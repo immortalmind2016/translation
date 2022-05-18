@@ -10,7 +10,7 @@
     "test": "jest",
     "seed": "ts-node ./src/seed/text.ts",
     "build": "tsc",
-    "postinstall": "npm build"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@types/joi": "^17.2.3",
