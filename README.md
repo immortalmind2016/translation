@@ -18,7 +18,7 @@
 }
 ```
 - The parsed version will be the input for our score similarity algorithm 
-- It will compare the subtitle input with the data stored from mongodb
+- It will compare the subtitle input with the data stored from mongodb **NOTE: it will look at data with approved status only** 
 - Then this function will return the following shape
 
 ```typescript
@@ -41,6 +41,18 @@
 ```
 - Next step this output will be an input for the `getTranslatedSubtitles` function to get a translated version in a suitable format
 - Finally the email is being sent you the client
+
+## Normal Flow
+- Importing data or use the seed command 
+- Approve these data with the backoffice change status URL 
+```ts
+POST /backoffice/:textTranslationId/status
+
+BODY {
+  status: APPROVED
+} 
+```
+- Try the translate POST route
 
 ## Tools
 - Nodejs
@@ -112,7 +124,12 @@ yarn watch:dev
     ```bash
     yarn test
     ```
+## Data Seeding
+- Write the following command to insert translations into the store without using the POST /import data
 
+    ```bash
+    yarn seed
+    ```
 ## API Documentation
 - Swagger UI
 ```GET /api-docs```
@@ -121,3 +138,9 @@ yarn watch:dev
 ## Postman collection
 
 [JSON Link](https://www.getpostman.com/collections/a6a60b853685f8f8785a)
+
+## Diagrams 
+### Translate flow
+[translate flow](https://i.ibb.co/qRHJLZv/image.png)
+### Import data flow
+[import data flow](https://i.ibb.co/KDj52YR/image.png)
