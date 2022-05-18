@@ -9,7 +9,8 @@
     "watch:dev": "nodemon -w src -x yarn start:dev -e ts",
     "test": "jest",
     "seed": "ts-node ./src/seed/text.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "postinstall": "yarn build"
   },
   "dependencies": {
     "@types/joi": "^17.2.3",
