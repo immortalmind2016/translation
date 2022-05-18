@@ -148,5 +148,5 @@ yarn watch:dev
 <img src="https://i.ibb.co/KDj52YR/image.png" alt="image" border="0">
 
 ### Approve translation data
-[import data flow](https://i.ibb.co/xgsWdt1/image.png)
+[approve data flow](https://i.ibb.co/xgsWdt1/image.png)
 <img src="https://i.ibb.co/xgsWdt1/image.png" alt="image" border="0">
