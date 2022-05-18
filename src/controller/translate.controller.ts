@@ -27,7 +27,9 @@ export const translateFile = async (req, res) => {
       .status(422)
       .json({ error: "Your input doesn't contain a required file" });
   }
+
   const filesNames = [];
+  //Score similarity algorithm promise for every file
   const scoreSimilarityPromises = req.files.map(async (file) => {
     filesNames.push(file.originalname);
     const fileData = file.buffer.toString("utf-8");
@@ -35,9 +37,12 @@ export const translateFile = async (req, res) => {
     return scoreSimilarity(parsedFileData);
   });
 
+  //output the similar sentences and scores for every sentence result of promises
   const scoreSimilarityPromisesResults = await Promise.all(
     scoreSimilarityPromises
   );
+
+  //create suitable format for translated subtitle version for every subtitle file
   const translatedSubtitles = scoreSimilarityPromisesResults.map(
     (result, index) => ({
       textData: getTranslatedSubtitles(result),
@@ -69,6 +74,8 @@ export const importData = async (req: RequestWithData, res) => {
     });
   }
   const data = body.data;
+
+  //convert the input data to a suitable data format
   const desiredData: Omit<
     TextTranslationDocument,
     "_id" | "createdAt" | "updatedAt"
