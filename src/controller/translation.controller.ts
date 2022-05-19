@@ -57,7 +57,7 @@ export const translateFile = async (req, res) => {
         "Subtitles have been successfully translated, We will send it ASAP to your email",
     });
   } catch (e) {
-    res.status(500)({
+    res.status(500).json({
       message: "Something went wrong while sending your email",
     });
   }

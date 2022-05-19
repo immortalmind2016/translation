@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { importData, translateFile } from "../controller/translate.controller";
+import {
+  importData,
+  translateFile,
+} from "../controller/translation.controller";
 import upload from "../config/multerConfig";
 
 const translateRouter = Router();
 /**
  * @openapi
- * "/translate":
+ * "/translation":
  *   post:
  *     summary: Translate your subtitle file
  *     requestBody:
@@ -37,7 +40,7 @@ translateRouter.post("/", upload.array("files"), translateFile);
 
 /**
  * @openapi
- * "/translate/import-data":
+ * "/translation/import-data":
  *   post:
  *     summary: Add translation data to the store
  *     requestBody:

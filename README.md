@@ -85,7 +85,7 @@ so the database query will return this document
 - Add more test cases
 - Use SendGrid for emails instead of nodemailer
 - Caching for Most frequently used sentences 
-- Don't wait the send email request to response to /translate request
+- Don't wait the send email request to response to /translation request
 - Authenticate/Authorize the access for the backoffice routes
 - Logging
 - Add CI/CD
