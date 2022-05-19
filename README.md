@@ -94,6 +94,7 @@ so the database query will return this document
 - Add CI/CD
 - Linting
 - More integration tests (and mocking)
+- Pagination for translations
 
 ## How to run the project
 ### Without Docker
