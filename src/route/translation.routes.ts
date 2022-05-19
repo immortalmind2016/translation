@@ -46,7 +46,7 @@ translateRouter.post("/", upload.array("files"), translateFile);
  *     requestBody:
  *       description: Test
  *       content:
- *         application/x-www-form-urlencoded:
+ *         application/json:
  *              schema:
  *                  properties:
  *                      data:
