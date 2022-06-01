@@ -4,7 +4,8 @@
         "esModuleInterop": true,
         "rootDir": "./src",
         "outDir": "dest",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "allowJs": true
     },
     "exclude": ["test","src/seed","jest.config.ts"]
 }
