@@ -46,14 +46,14 @@ const translateSubtitles = async (
 const translateFile = async (files, { fromLanguage, toLanguage }) => {
   const filesNames = [];
 
-  //Score similarity algorithm promise for every file
+  //Score similarity algorithm promise for all files
   const scoreSimilarityMultileFiles = await getScoreSimilarityFiles(
     { files, filesNames },
     fromLanguage
   );
 
   //create suitable format for translated subtitle version for every subtitle file
-  //it returns
+  //it returns a promise for all translated subtitles
   const translatedSubtitles = await translateSubtitles(
     {
       scoreSimilarityMultileFiles,
