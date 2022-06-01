@@ -3,7 +3,6 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import path from "path";
 
 import mongoose from "mongoose";
-console.log(process.env);
 dotenv.config({
   path: path.join(__dirname, "..", "..", ".env.test"),
 });

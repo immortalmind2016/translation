@@ -1,4 +1,14 @@
 import levenshtein from "js-levenshtein";
+import path from "path";
+import { promisify } from "util";
+
+var workerFarm = require("worker-farm"),
+  workers = workerFarm(
+    require.resolve(
+      path.join(__dirname, "..", "child-process", "calculate-distance.js")
+    )
+  );
+const calculateDistance = promisify(workers);
 
 import {
   ParsedText,
@@ -20,10 +30,12 @@ export const scoreSimilarity: (
   //compare each sentence from the text file with the results from db , get the score of similarity and return the results
   //in well-formatted shape
 
-  const sentencesScores = textFileData.map(({ text, index, time }) => {
+  const sentencesScores = textFileData.map(async ({ text, index, time }) => {
     const similarSentences = textTranslations
-      .map((result) => {
-        let score = levenshtein(result.text, text);
+      .map(async (result) => {
+        let score = (await calculateDistance(
+          `${result.text}#${text}`
+        )) as number;
         if (score <= 5) {
           return {
             data: result,
@@ -34,11 +46,11 @@ export const scoreSimilarity: (
       .filter((data) => !!data);
 
     return {
-      similar: similarSentences,
+      similar: await Promise.all(similarSentences),
       message: text,
       index,
       time,
     };
   });
-  return sentencesScores;
+  return Promise.all(sentencesScores);
 };

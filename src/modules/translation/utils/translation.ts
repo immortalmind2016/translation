@@ -10,7 +10,7 @@ export const getTranslatedSubtitles = (
     let message = ``;
     if (
       result.similar?.length === 0 ||
-      !result.similar[0].data.translations[toLanguage]
+      !result.similar[0]?.data.translations[toLanguage]
     ) {
       message = result.message;
     } else {

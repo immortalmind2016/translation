@@ -2,6 +2,12 @@
 ## Description
 - It is a simple translator based on historical data from mongodb, So you can upload your subtitles and get the translated version of them
 
+## Some fixes:
+- Separate Layers [Controller,Service,Repository]
+- Avoid using regex
+- Calculate distance in a child process
+- Allow multiple language translations not only en to de
+- Show usefully messages for errors
 
 ## Demo
 [Heroku Link](https://mo-salah-lengoo-v1.herokuapp.com/api-docs/#/)
