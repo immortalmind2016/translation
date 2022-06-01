@@ -1,17 +1,11 @@
 import mongoose, { Schema } from "mongoose";
-import {
-  Language,
-  TextTranslationDocument,
-  TextTranslationStatus,
-  TranslationDocument,
-} from "../types";
+import { TextTranslationDocument, TextTranslationStatus } from "../../types";
 
 const TextSchema = new Schema<TextTranslationDocument>(
   {
     defaultLanguage: {
       type: String,
-      default: Language.en,
-      enum: Object.values(Language),
+      required: true,
     },
     text: { type: String, required: true },
     translations: Object,

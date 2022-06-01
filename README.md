@@ -82,18 +82,19 @@ so the database query will return this document
   if the input is **Hi, Hello Wrld** and the stored translation text is **Hi, Hello World** So the db query will not return this stored translation text because we missed the **o** letter at input
 
 ## Near future improvements 
-- Using NLP (deeplearning) algorithm instead of this simple one
+- Using NLP (deep learning) algorithm instead of this simple one
 - We can use [Atlas Search](https://www.mongodb.com/docs/atlas/atlas-search/atlas-search-overview/) for faster queries
   - If we decided to use this one we will not need to make our algorithm to check the score, the db will create it for us
 - Add more test cases
+- More integration tests, mocking, and dependency injection to facilitate the testing.
 - Use SendGrid for emails instead of nodemailer
 - Caching for Most frequently used sentences 
-- Don't wait the send email request to response to /translation request
-- Authenticate/Authorize the access for the backoffice routes
+- Don't wait until the send email request to respond to /translation request
+- Authenticate/Authorize the access for the back office routes
+- Create a separated layer for data storage (repository/data source layer )
 - Logging
 - Add CI/CD
 - Linting
-- More integration tests (and mocking)
 - Pagination for translations
 
 ## How to run the project
@@ -136,6 +137,32 @@ yarn watch:dev
     ```bash
     yarn seed
     ```
+
+## Dependency Injection POC for A controller
+- We can create the translation controller as a class 
+- Move the whole things related to the db to a `translation.datasource.ts`
+- Create an interface contains all the definitions of the function must be implemented in that datasource
+
+  ```typescript
+    interface TranslationDataSource{
+      findOne(id:string):object
+    }
+  ```
+- Create a class called ``` TranslationDataSource ``` implements that interface
+- Make it as dependency for the ```Translation Controller``` 
+  ```typescript
+    class TranslationController{
+      translationDatasource:TranslationDataSource
+      constructor(public translationDataSource:TranslationDataSource){
+      }
+      get(){
+        //make use of translationDataSource.get()
+      }
+    }
+
+  ```
+- Why to do such that thing?
+  - To facilitate dependency injection and mocking for the testing
 ## API Documentation
 - Swagger UI
 ```GET /api-docs```

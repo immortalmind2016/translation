@@ -1,8 +1,9 @@
 import { Router } from "express";
-import {
-  changeStatus,
-  listStoredTranslations,
-} from "../controller/backoffice.controller";
+import { TextModel } from "../../modules/translation/translation.model";
+import { RequestWithData, TextTranslationStatus } from "../../types";
+import { errorsText } from "../../utils/errors";
+import { updateStatusSchema } from "../../utils/validator";
+import { backofficeService } from "./backoffice.service";
 
 const backofficeRouter = Router();
 
@@ -33,7 +34,27 @@ const backofficeRouter = Router();
  *                              type: array
  */
 
-backofficeRouter.put("/translations/:id/status/", changeStatus);
+backofficeRouter.put(
+  "/translations/:id/status/",
+  async (req: RequestWithData, res) => {
+    const body = req.body;
+    const result = updateStatusSchema.validate(body);
+    const { error } = result;
+
+    if (!!error) {
+      return res.status(422).json({
+        error: errorsText(error),
+      });
+    }
+
+    res.json({
+      data: await backofficeService.changeStatus(
+        req.params.id,
+        TextTranslationStatus[body.status]
+      ),
+    });
+  }
+);
 
 /**
  * @openapi
@@ -51,6 +72,8 @@ backofficeRouter.put("/translations/:id/status/", changeStatus);
  *                              type: array
  */
 
-backofficeRouter.get("/translations/", listStoredTranslations);
+backofficeRouter.get("/translations/", async (req, res) => {
+  res.json({ data: await backofficeService.listTranslations() });
+});
 
 export default backofficeRouter;

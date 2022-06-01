@@ -1,5 +1,5 @@
-import { scoreSimilarity } from "../../src/utils/scoreSimilarityAlgorithm";
-import { ParsedText } from "../../src/types";
+import { scoreSimilarity } from "../../src/modules/translation/utils/scoreSimilarityAlgorithm";
+import { ParsedText, TextTranslationStatus } from "../../src/types";
 import mongoose from "mongoose";
 
 describe("Test the score similarity algorithm", () => {
@@ -16,13 +16,17 @@ describe("Test the score similarity algorithm", () => {
       time: "[00-00-20 00-00-21]",
     };
     const textDataFile: ParsedText[] = [data];
-    expect(await scoreSimilarity(textDataFile)).toStrictEqual([
-      {
-        similar: [],
-        message: data.text,
-        index: data.index,
-        time: data.time,
-      },
-    ]);
+    const textTranslations = [];
+
+    expect(await scoreSimilarity(textDataFile, textTranslations)).toStrictEqual(
+      [
+        {
+          similar: [],
+          message: data.text,
+          index: data.index,
+          time: data.time,
+        },
+      ]
+    );
   });
 });

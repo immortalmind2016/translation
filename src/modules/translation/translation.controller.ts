@@ -1,9 +1,11 @@
 import { Router } from "express";
-import {
-  importData,
-  translateFile,
-} from "../controller/translation.controller";
-import upload from "../config/multerConfig";
+import upload from "../../config/multerConfig";
+import { sendSubtitlesEmail } from "./utils/translation";
+import { importDataSchema, translateFileSchema } from "../../utils/validator";
+import { TranslationService } from "./translation.service";
+import { TextTranslationDocument, TextTranslationStatus } from "../../types";
+import { TextModel } from "./translation.model";
+import { errorsText } from "../../utils/errors";
 
 const translateRouter = Router();
 /**
@@ -19,6 +21,10 @@ const translateRouter = Router();
  *                  properties:
  *                      email:
  *                         type: string
+ *                      fromLanguage:
+ *                          type: string
+ *                      toLanguage:
+ *                          type: string
  *                      files:
  *                          type: array
  *                          items:
@@ -36,7 +42,42 @@ const translateRouter = Router();
  *                              type: string
  *                              example: Subtitles have been successfully translated, We will send it ASAP to your email
  */
-translateRouter.post("/", upload.array("files"), translateFile);
+translateRouter.post("/", upload.array("files"), async (req, res, err) => {
+  const body = req.body;
+  const result = translateFileSchema.validate(body, { abortEarly: false });
+  const { error } = result;
+
+  if (!!error) {
+    return res.status(422).json({
+      error: errorsText(error),
+    });
+  }
+
+  if (!req.files || !req.files.length) {
+    return res
+      .status(422)
+      .json({ error: "Your input doesn't contain the required file" });
+  }
+  const { email, fromLanguage, toLanguage } = body;
+  const translatedSubtitles = await TranslationService.translateFile(
+    req.files,
+    { fromLanguage, toLanguage }
+  );
+
+  try {
+    await sendSubtitlesEmail(translatedSubtitles, email);
+    res.json({
+      message:
+        "Subtitles have been successfully translated, We will send it ASAP to your email",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message:
+        "Something went wrong with the email provider while sending your email",
+    });
+  }
+});
 
 /**
  * @openapi
@@ -75,6 +116,24 @@ translateRouter.post("/", upload.array("files"), translateFile);
  *                          data:
  *                              type: array
  */
-translateRouter.post("/import-data", importData);
+
+translateRouter.post("/import-data", async (req, res, err) => {
+  const body = req.body;
+  const result = importDataSchema.validate(body, { abortEarly: false });
+  const { error } = result;
+
+  if (!!error) {
+    return res.status(422).json({
+      error: errorsText(error),
+    });
+  }
+
+  const data = body.data;
+  const textTranslationDocument = await TranslationService.importData(data);
+
+  return res.json({
+    data: textTranslationDocument,
+  });
+});
 
 export default translateRouter;

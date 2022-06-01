@@ -10,8 +10,10 @@ describe("test the translation routes", () => {
   });
   it("tests translate file", async () => {
     const { body } = await request(app)
-      .post("/translate")
+      .post("/translation")
       .field("email", "mohamedsalah.software@gmail.com")
+      .field("fromLanguage", "en")
+      .field("toLanguage", "de")
       .attach(
         "files",
         path.join(__dirname, "..", "..", "example", "subtitles.txt")

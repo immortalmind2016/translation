@@ -11,16 +11,11 @@ export enum TextTranslationStatus {
 export interface TextTranslationDocument {
   _id: string;
   text: string;
-  defaultLanguage: Language;
+  defaultLanguage: string;
   translations: TranslationDocument;
   status: TextTranslationStatus;
   createdAt: Date;
   updatedAt: Date;
-}
-
-export enum Language {
-  en = "en",
-  de = "de",
 }
 
 export interface SimilarityAlgorithm {
@@ -42,8 +37,8 @@ export interface ParsedText {
 export interface predefinedData {
   source: string;
   target: string;
-  sourceLanguage: Language;
-  targetLanguage: Language;
+  sourceLanguage: string;
+  targetLanguage: string;
 }
 export interface RequestWithData extends Request {
   body: {

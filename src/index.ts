@@ -1,11 +1,11 @@
 import express from "express";
 import config from "./config";
-import translationRouter from "./route/translation.routes";
+import translationRouter from "./modules/translation/translation.controller";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import swaggerJs from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swaggerConfig";
-import backofficeRouter from "./route/backoffice.routes";
+import backofficeRouter from "./modules/backoffice/backoffice.controller";
 
 mongoose.connect(config.MONGO_URI);
 

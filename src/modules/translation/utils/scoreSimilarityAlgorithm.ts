@@ -1,32 +1,27 @@
 import levenshtein from "js-levenshtein";
-import { TextModel } from "../model/translate.model";
+
 import {
   ParsedText,
   SimilarityAlgorithm,
-  TextTranslationStatus,
-} from "../types";
+  TextTranslationDocument,
+} from "../../../types";
 
 //This is a simple way to find the similar sentences
 //We can depend on any NLP algorithms to take on mind the context , sequence and the word by word comparison
 //So we will use the current algorithm but it's not the efficient one
 
 export const scoreSimilarity: (
-  textFileData: ParsedText[]
-) => Promise<SimilarityAlgorithm[]> = async (textFileData) => {
-  const sentences = textFileData.map((sentence) => sentence.text);
-
-  //convert every sentence as regex /text/g to query inside mongo as like operation inside sql dbs
-  const sentencesAsRegex = sentences.map((text) => new RegExp(text, "g"));
-  const queryResults = await TextModel.find({
-    status: TextTranslationStatus.APPROVED,
-    text: { $in: sentencesAsRegex },
-  });
-
+  textFileData: ParsedText[],
+  textTranslations: TextTranslationDocument[]
+) => Promise<SimilarityAlgorithm[]> = async (
+  textFileData,
+  textTranslations
+) => {
   //compare each sentence from the text file with the results from db , get the score of similarity and return the results
   //in well-formatted shape
 
   const sentencesScores = textFileData.map(({ text, index, time }) => {
-    const similarSentences = queryResults
+    const similarSentences = textTranslations
       .map((result) => {
         let score = levenshtein(result.text, text);
         if (score <= 5) {
