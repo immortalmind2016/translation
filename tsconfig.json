@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "rootDir": "./src",
+        "outDir": "dest",
+        "resolveJsonModule": true
+    },
+    "exclude": ["test","src/seed","jest.config.ts"]
+}
