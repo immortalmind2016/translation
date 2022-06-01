@@ -7,5 +7,5 @@
         "resolveJsonModule": true,
         "allowJs": true
     },
-    "exclude": ["test","src/seed","jest.config.ts"]
+    "exclude": ["test","src/seed","jest.config.ts","dest"]
 }
