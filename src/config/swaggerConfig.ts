@@ -10,5 +10,5 @@ export const swaggerOptions: SwaggerOptions = {
     },
   },
 
-  apis: ["./src/route/*.routes.ts"], // files containing annotations as above
+  apis: ["./src/modules/**/*.controller.ts"], // files containing annotations as above
 };
