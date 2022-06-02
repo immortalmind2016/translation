@@ -53,6 +53,7 @@ const translateFile = async (files, { fromLanguage, toLanguage }) => {
   //Get parsed suitable file data
   const parsedFilesData = getParsedFilesData({ files, filesNames });
 
+  //Get all translated subtitles for multiple files with scores
   const TranslatedMultipleFileSentences = parsedFilesData.map(
     async (fileData) => {
       const translatedSentences =
