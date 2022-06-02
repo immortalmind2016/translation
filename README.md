@@ -6,7 +6,7 @@
 - Separate Layers [Controller,Service,Repository]
 - Avoid using regex
 - Calculate distance in a child process
-- Allow multiple language translations not only en to de
+- Allow multiple language translations not only en to de even the translation imported data source and target is reversed !
 - Show usefully messages for errors
 
 ## Demo
