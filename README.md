@@ -186,14 +186,19 @@ yarn watch:dev
 
 ### Arch
 
-[translate flow](https://i.ibb.co/DYXJ7pG/image.png)
+[Arch](https://i.ibb.co/DYXJ7pG/image.png)
+
 <img src="https://i.ibb.co/DYXJ7pG/image.png" alt="image" border="0">
 
 ### Translate flow
+
 [translate flow](https://i.ibb.co/qRHJLZv/image.png)
+
 <img src="https://i.ibb.co/qRHJLZv/image.png" alt="image" border="0">
+
 ### Import data flow
 [import data flow](https://i.ibb.co/MNcTq7C/image.png)
+
 <img src="https://i.ibb.co/MNcTq7C/image.png" alt="image" border="0">
 
 ### Approve translation data
