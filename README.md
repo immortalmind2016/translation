@@ -180,6 +180,10 @@ yarn watch:dev
 
 ## Diagrams 
 
+### Translate file heigh level design
+
+![image](https://user-images.githubusercontent.com/22199342/171549701-7ec1ac8f-a41d-4ceb-a4b8-6252b4b94429.png)
+
 ### Arch
 
 [translate flow](https://i.ibb.co/DYXJ7pG/image.png)
