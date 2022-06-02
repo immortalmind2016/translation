@@ -2,11 +2,11 @@
 ## Description
 - It is a simple translator based on historical data from mongodb, So you can upload your subtitles and get the translated version of them
 
-## Some fixes:
+## Enhancements:
 - Separate Layers [Controller,Service,Repository]
-- Avoid using regex
-- Calculate distance in a child process
-- Allow multiple language translations not only en to de
+- Avoid using regex and use atlas search for better performance
+- Calculate distance in a child process , we can add it inside a different service too
+- Allow multiple language translations not only en to de even the translation imported data source and target is reversed !
 - Show usefully messages for errors
 
 ## Demo

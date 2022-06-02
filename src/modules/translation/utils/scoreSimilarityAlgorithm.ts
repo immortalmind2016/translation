@@ -22,10 +22,12 @@ import {
 
 export const scoreSimilarity: (
   textFileData: ParsedText[],
-  textTranslations: TextTranslationDocument[]
+  textTranslations: TextTranslationDocument[],
+  requiredLanguage: string
 ) => Promise<SimilarityAlgorithm[]> = async (
   textFileData,
-  textTranslations
+  textTranslations,
+  requiredLanguage
 ) => {
   //compare each sentence from the text file with the results from db , get the score of similarity and return the results
   //in well-formatted shape
@@ -33,20 +35,36 @@ export const scoreSimilarity: (
   const sentencesScores = textFileData.map(async ({ text, index, time }) => {
     const similarSentences = textTranslations
       .map(async (result) => {
-        let score = (await calculateDistance(
-          `${result.text}#${text}`
-        )) as number;
+        let [score, translationObjectScore] = await Promise.all([
+          calculateDistance(`${result.text}#${text}`),
+          calculateDistance(`${result.translations[requiredLanguage]}#${text}`),
+        ]);
         if (score <= 5) {
           return {
             data: result,
             score,
           };
         }
+        if (translationObjectScore <= 5) {
+          //To keep the data order as expected output
+          return {
+            data: {
+              ...result,
+              defaultLanguage: requiredLanguage,
+              text: result.translations[requiredLanguage],
+              translations: {
+                ...result.translations,
+                [result.defaultLanguage]: result.text,
+              },
+            },
+            score: translationObjectScore,
+          };
+        }
       })
       .filter((data) => !!data);
 
     return {
-      similar: await Promise.all(similarSentences),
+      similar: (await Promise.all(similarSentences)).filter((data) => !!data),
       message: text,
       index,
       time,

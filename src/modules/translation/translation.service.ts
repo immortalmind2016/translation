@@ -1,5 +1,6 @@
 import { TextModel } from "./translation.model";
 import {
+  ParsedText,
   predefinedData,
   RequestWithData,
   SimilarityAlgorithm,
@@ -12,58 +13,73 @@ import { getTranslatedSubtitles } from "./utils/translation";
 import { importDataSchema } from "../../utils/validator";
 import { TranslationRepository } from "./translation.repository";
 
-const getScoreSimilarityFiles = async ({ files, filesNames }, fromLanguage) => {
-  const scoreSimilarityPromises: SimilarityAlgorithm[] = files.map(
-    async (file) => {
-      filesNames.push(file.originalname);
-      const fileData = file.buffer.toString("utf-8");
-      const parsedFileData = parseTextToOject(fileData) || [];
-      const TranslatedSentences =
-        await TranslationRepository.findTranslatedSentences(
-          parsedFileData,
-          fromLanguage
-        );
-      return scoreSimilarity(parsedFileData, TranslatedSentences);
-    }
-  );
+const getParsedFilesData = ({ files, filesNames }): ParsedText[][] => {
+  const parsedFilesData: ParsedText[][] = files.map((file) => {
+    filesNames.push(file.originalname);
+    const fileData = file.buffer.toString("utf-8");
+    const parsedFileData = parseTextToOject(fileData) || [];
+    return parsedFileData;
+  });
 
-  return Promise.all(scoreSimilarityPromises);
+  return parsedFilesData;
 };
 
-const translateSubtitles = async (
-  { scoreSimilarityMultileFiles, filesNames },
+const translateSubtitles = (
+  { TranslatedMultipleFileSentences, filesNames },
   { toLanguage }
 ) => {
-  const scoreSimilarityMultileFilesPromises = scoreSimilarityMultileFiles.map(
-    async (result, index) => ({
-      textData: await getTranslatedSubtitles(result, toLanguage),
+  const scoreSimilarityMultipleFilesPromises =
+    TranslatedMultipleFileSentences.map((result, index) => ({
+      textData: getTranslatedSubtitles(result, toLanguage),
       fileName: filesNames[index],
+    }));
+  return scoreSimilarityMultipleFilesPromises;
+};
+
+const sortByScore = (translatedFiles) => {
+  return translatedFiles.map((translatedFile) =>
+    translatedFile.map((translatedSentence) => {
+      return {
+        ...translatedSentence,
+        similar: translatedSentence.similar.sort((a, b) => b.score - a.score),
+      };
     })
   );
-  return Promise.all(scoreSimilarityMultileFilesPromises);
 };
 
 const translateFile = async (files, { fromLanguage, toLanguage }) => {
   const filesNames = [];
 
-  //Score similarity algorithm promise for all files
-  const scoreSimilarityMultileFiles = await getScoreSimilarityFiles(
-    { files, filesNames },
-    fromLanguage
+  //Get parsed suitable file data
+  const parsedFilesData = getParsedFilesData({ files, filesNames });
+
+  //Get all translated subtitles for multiple files with scores
+  const TranslatedMultipleFileSentences = parsedFilesData.map(
+    async (fileData) => {
+      const translatedSentences =
+        await TranslationRepository.findTranslatedSentences(
+          fileData,
+          fromLanguage
+        );
+      return scoreSimilarity(fileData, translatedSentences, fromLanguage);
+    }
   );
 
-  //create suitable format for translated subtitle version for every subtitle file
-  //it returns a promise for all translated subtitles
-  const translatedSubtitles = await translateSubtitles(
+  const TranslatedSortedFilesByScore = sortByScore(
+    await Promise.all(TranslatedMultipleFileSentences)
+  );
+
+  const translatedSubtitles = translateSubtitles(
     {
-      scoreSimilarityMultileFiles,
+      TranslatedMultipleFileSentences: TranslatedSortedFilesByScore,
       filesNames,
     },
     {
       toLanguage,
     }
   );
-  return Promise.all(translatedSubtitles);
+
+  return translatedSubtitles;
 };
 
 const importData = async (data: predefinedData[]) => {

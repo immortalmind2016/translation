@@ -2,16 +2,28 @@ import { TextTranslationDocument, TextTranslationStatus } from "../../types";
 import { TextModel } from "./translation.model";
 
 const findTranslatedSentences = async (textFileData, fromLanguage) => {
-  const sentences = textFileData.map((sentence) => sentence.text);
-  const queryResults = await TextModel.find({
-    status: TextTranslationStatus.APPROVED,
-    $or: [
-      { text: { $in: sentences }, defaultLanguage: fromLanguage },
-      {
-        [`translations.${fromLanguage}`]: { $in: sentences },
-      },
-    ],
-  });
+  const queryResults = (
+    await Promise.all(
+      textFileData.map((sentence) =>
+        TextModel.aggregate([
+          {
+            $search: {
+              index: "default",
+              text: {
+                query: sentence.text,
+                path: {
+                  wildcard: "*",
+                },
+              },
+            },
+          },
+        ]).match({ status: TextTranslationStatus.APPROVED })
+      )
+    )
+  )
+    .flat(2)
+    .filter((result) => !!result);
+
   return queryResults;
 };
 

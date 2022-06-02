@@ -20,6 +20,5 @@ const TextSchema = new Schema<TextTranslationDocument>(
   }
 );
 
-TextSchema.index({ text: 1 });
-
+TextSchema.index({ "$**": "text" });
 export const TextModel = mongoose.model("Text", TextSchema);

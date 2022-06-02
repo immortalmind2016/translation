@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJs from "swagger-jsdoc";
 import { swaggerOptions } from "./config/swaggerConfig";
 import backofficeRouter from "./modules/backoffice/backoffice.controller";
+mongoose.set("debug", true);
 
 mongoose.connect(config.MONGO_URI);
 
