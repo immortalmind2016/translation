@@ -18,15 +18,15 @@ describe("Test the score similarity algorithm", () => {
     const textDataFile: ParsedText[] = [data];
     const textTranslations = [];
 
-    expect(await scoreSimilarity(textDataFile, textTranslations)).toStrictEqual(
-      [
-        {
-          similar: [],
-          message: data.text,
-          index: data.index,
-          time: data.time,
-        },
-      ]
-    );
+    expect(
+      await scoreSimilarity(textDataFile, textTranslations, "en")
+    ).toStrictEqual([
+      {
+        similar: [],
+        message: data.text,
+        index: data.index,
+        time: data.time,
+      },
+    ]);
   });
 });

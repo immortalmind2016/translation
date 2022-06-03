@@ -66,10 +66,6 @@ translateRouter.post("/", upload.array("files"), async (req, res, err) => {
 
   try {
     await sendSubtitlesEmail(translatedSubtitles, email);
-    res.json({
-      message:
-        "Subtitles have been successfully translated, We will send it ASAP to your email",
-    });
   } catch (e) {
     res.status(500).json({
       message:
