@@ -1,6 +1,8 @@
 import transporter from "../../../config/emailConfig";
 import { translationDataEmail } from "../../../templates/emailTemplate";
 import { SimilarityAlgorithm } from "../../../types";
+import sgMail from "@sendgrid/mail";
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const getTranslatedSubtitles = (
   results: SimilarityAlgorithm[],
@@ -22,13 +24,12 @@ export const getTranslatedSubtitles = (
 };
 
 export const sendSubtitlesEmail = async (translatedSubtitles, email) => {
-  return transporter.sendMail(
-    translationDataEmail({
-      to: email,
-      attachments: translatedSubtitles.map((translatedSubtitle) => ({
-        content: translatedSubtitle.textData,
-        filename: translatedSubtitle.fileName,
-      })),
-    })
-  );
+  const emailMsg = translationDataEmail({
+    to: email,
+    attachments: translatedSubtitles.map((translatedSubtitle) => ({
+      content: translatedSubtitle.textData,
+      filename: translatedSubtitle.fileName,
+    })),
+  });
+  return sgMail.send(emailMsg);
 };

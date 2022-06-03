@@ -49,9 +49,9 @@ export interface RequestWithData extends Request {
 }
 
 export interface EmailTemplateArgs {
-  to: String;
-  subject: String;
-  text: String;
+  to: string;
+  subject: string;
+  text: string;
   attachments?: {
     filename: string;
     content: string;
